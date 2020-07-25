@@ -14,13 +14,13 @@ namespace SampleMvcApp.Controllers
     {
         public async Task Login(string returnUrl = "/")
         {
-            await HttpContext.ChallengeAsync("Auth0", new AuthenticationProperties() { RedirectUri = returnUrl });
+            await HttpContext.ChallengeAsync("oidc", new AuthenticationProperties() { RedirectUri = returnUrl });
         }
 
         [Authorize]
         public async Task Logout()
         {
-            await HttpContext.SignOutAsync("Auth0", new AuthenticationProperties
+            await HttpContext.SignOutAsync("oidc", new AuthenticationProperties
             {
                 // Indicate here where Auth0 should redirect the user after a logout.
                 // Note that the resulting absolute Uri must be whitelisted in the
@@ -34,7 +34,8 @@ namespace SampleMvcApp.Controllers
         public IActionResult Profile()
         {
             return View(new UserProfileViewModel()
-            {
+			{
+				Claims = User.Claims,
                 Name = User.Claims.FirstOrDefault(c => c.Type == "preferred_username")?.Value, //User.Identity.Name,
                 EmailAddress = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
                 ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value

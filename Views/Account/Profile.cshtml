@@ -17,6 +17,10 @@
                 <p>
                     <i class="glyphicon glyphicon-envelope"></i> @Model.EmailAddress
                 </p>
+@foreach (var c in @Model.Claims)
+{
+   <p>@c.Type = @c.Value</p>
+}
             </div>
         </div>
     </div>

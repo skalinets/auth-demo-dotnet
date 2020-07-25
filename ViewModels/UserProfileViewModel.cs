@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SampleMvcApp.ViewModels
@@ -14,5 +15,6 @@ namespace SampleMvcApp.ViewModels
         public string Name { get; set; }
 
         public string ProfileImage { get; set; }
+        public IEnumerable<Claim> Claims { get; internal set; }
     }
 }
